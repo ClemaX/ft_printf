@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memset.c                                      .::    .:/ .      .::   */
+/*   libftprintf.h                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/07 15:09:59 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/13 18:10:29 by chamada     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/15 18:54:08 by chamada      #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/16 17:47:02 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-void	*ft_memset(void *b, int c, unsigned long len)
-{
-	unsigned char *temp;
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
-	temp = b;
-	while (len--)
-		*(temp++) = c;
-	return (b);
-}
+typedef struct  s_settings
+{
+    int precision;
+    int field_width;
+}               t_settings;
+
+int			ft_putchar(char c);
+int			ft_putnbr(int n);
+int			ft_putstr(char *s);
+
+#endif
