@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_putstr.c                                      .::    .:/ .      .::   */
+/*   tests.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/13 17:41:16 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/13 17:43:07 by chamada     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/30 09:02:09 by chamada      #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/30 09:03:08 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-int	ft_putstr(char *str)
-{
-	char *s;
+#ifndef TEST_H
+# define TEST_H
 
-	s = str;
-	while (*s)
-		write(*s++);
-	return (str - s);
-}
+void	test_int();
+void	test_char();
+void	test_uint();
+void	test_str();
+
+#endif

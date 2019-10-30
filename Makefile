@@ -2,10 +2,10 @@ NAME	= libftprintf.a
 LIBFT	= lib/libft.a
 CC		= /usr/bin/gcc
 SRCDIR	= srcs
-INCDIR	= include
+INCDIR	= includes
 OBJDIR	= obj
 CFLAGS	= -Wall -Wextra -Werror -I$(INCDIR)
-SRCS	= $(addprefix $(SRCDIR)/,ft_printf.c, strings.c)
+SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c strings.c)
 OBJS	= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 TEST	= tests/main.c
 

@@ -6,87 +6,86 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 18:32:00 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 09:10:46 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include <libftprintf.h>
+#include "libftprintf.h"
 #include <stdarg.h>
+#include <stdlib.h>
 
-static int	get_field_width(const char **format, va_list ap)
+static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
 {
-	int field_width;
-
-	field_width = 0;
-	if (**format++ == '*')
-		return (va_arg(ap, int));
+	s->padding = ' ';
+	s->field_width = 0;
+	if (**fmt == '0' || **fmt == ' ')
+		s->padding = **fmt++;
+	if (**fmt++ == '*')
+		s->field_width = va_arg(ap, int);
 	else
-		while (is_numeric(**format))
-			field_width += 10 * field_width + **format++ - '0';
-	return (field_width);
+		while (ft_isdigit(**fmt))
+			s->field_width += 10 * s->field_width + **fmt++ - '0';
 }
 
-static int	get_precision(const char **format, va_list ap)
+static void	get_precision(const char **fmt, va_list ap, t_settings *s)
 {
-	int precision;
-
-	precision = 0;
-	if (**format++ == '.')
+	s->precision = 0;
+	if (**fmt++ == '.')
 	{
-		if (**format == '*')
-		{
-			**format++;
-			precision = va_arg(ap, int);
-		}
+		if (**fmt++ == '*')
+			s->precision = va_arg(ap, int);
 		else
-			while (is_numeric(**format))
-				precision += 10 * precision + **format++ - '0';
+			while (ft_isdigit(**fmt))
+				s->precision += 10 * s->precision + **fmt++ - '0';
 	}
-	return (precision);
 }
 
-static int	print(const char **format, t_settings settings, va_list ap)
+static int	print(const char **fmt, t_settings s, va_list ap)
 {
 	int		count;
 	char	*str;
 
-	if (**format == 'c')
-		str = get_char(va_arg(ap, char), settings.field_width);
-	else if (**format == 'd' || **format == 'i')
-		str = get_int(ap, settings);
-	else if (**format == 'u')
-		str = get_uint(ap, settings);
-	else if (**format == 's')
-		str = get_str(ap, settings);
-	else if (**format == 'x' || **format == 'X')
-		str = get_hex(ap, settings);
-	while (str[count] && settings.precision--)
-		write(1, str[count++], 1);
+	if (**fmt == 'c')
+		count = get_char(&str, va_arg(ap, int), s.field_width);
+	else if (**fmt == 'd' || **fmt == 'i')
+		count = get_int(&str, va_arg(ap, int), s);
+	else if (**fmt == 'u')
+		count = get_uint(&str, va_arg(ap, unsigned int), s);
+	else if (**fmt == 's')
+		count = get_str(&str, va_arg(ap, char*), s);
+	else if (**fmt == 'x' || **fmt == 'X')
+		count = get_hex(&str, va_arg(ap, int), s);
+	else
+		return (0);
+	ft_putstr_fd(str, 1);
 	free(str);
 	return (count);
 }
 
-int			ft_printf(const char *format, ...)
+int			ft_printf(const char *fmt, ...)
 {
 	va_list		ap;
-	t_settings	settings;
-	int			count;
+	t_settings	s;
+	int			len;
 
-	count = 0;
-	va_start(ap, format);
-	while (*format)
+	len = 0;
+	va_start(ap, fmt);
+	while (*fmt)
 	{
-		if (*format != '%')
-			ft_putchar(*format++);
+		if (*fmt != '%')
+		{
+			ft_putchar_fd(*fmt++, 1);
+			len++;
+		}
 		else
 		{
-			settings.field_width = get_field_width(&format, ap);
-			settings.precision = get_precision(&format, ap);
-			count += print(&format, settings, ap);
+			get_field_width(&fmt, ap, &s);
+			get_precision(&fmt, ap, &s);
+			len += print(&fmt, s, ap);
 		}
-		format++;
+		fmt++;
 	}
 	va_end(ap);
-	return (count);
+	return (len);
 }

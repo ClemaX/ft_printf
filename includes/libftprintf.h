@@ -6,22 +6,28 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/15 18:54:08 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 17:47:02 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 09:12:18 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
+# include "libft.h"
+# include <stdarg.h>
 
-typedef struct  s_settings
+typedef struct	s_settings
 {
-    int precision;
-    int field_width;
-}               t_settings;
+	int		precision;
+	int		field_width;
+	char	padding;
+}				t_settings;
 
-int			ft_putchar(char c);
-int			ft_putnbr(int n);
-int			ft_putstr(char *s);
+int				ft_printf(const char *format, ...);
+int				get_char(char **str, char c, int fw);
+int				get_int(char **str, int n, t_settings s);
+int				get_uint(char **str, unsigned int n, t_settings s);
+int				get_str(char **dst, char *src, t_settings s);
+int				get_hex(char **str, int n, t_settings s);
 
 #endif
