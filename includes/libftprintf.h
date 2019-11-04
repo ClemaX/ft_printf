@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/15 18:54:08 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 09:12:18 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:49:58 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ typedef struct	s_settings
 
 int				ft_printf(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
 int				get_char(char **str, char c, int fw);
-int				get_int(char **str, int n, t_settings s);
+int				get_int(char **str, int n, t_settings s, const char *base);
 int				get_uint(char **str, unsigned int n, t_settings s);
 int				get_str(char **dst, char *src, t_settings s);
 int				get_hex(char **str, int n, t_settings s);

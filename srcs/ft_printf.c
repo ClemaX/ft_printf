@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/02 23:28:29 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 14:17:38 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,13 +61,15 @@ static int	print(const char **fmt, t_settings s, va_list ap)
 	if (**fmt == 'c')
 		count = get_char(&str, va_arg(ap, int), s.field_width);
 	else if (**fmt == 'd' || **fmt == 'i')
-		count = get_int(&str, va_arg(ap, int), s);
+		count = get_int(&str, va_arg(ap, int), s, "0123456789");
 	else if (**fmt == 'u')
 		count = get_uint(&str, va_arg(ap, unsigned int), s);
 	else if (**fmt == 's')
 		count = get_str(&str, va_arg(ap, char*), s);
-	else if (**fmt == 'x' || **fmt == 'X')
-		count = get_hex(&str, va_arg(ap, int), s);
+	else if (**fmt == 'x')
+		count = get_int(&str, va_arg(ap, int), s, "0123456789abcdef");
+	else if (**fmt == 'X')
+		count = get_int(&str, va_arg(ap, int), s, "0123456789ABCDEF");
 	else
 		count = -1;
 	(*fmt)++;
