@@ -3,6 +3,7 @@ LIBFT	= lib/libft.a
 CC		= /usr/bin/gcc
 SRCDIR	= srcs
 INCDIR	= includes
+HEADER	= libftprintf.h
 OBJDIR	= obj
 CFLAGS	= -Wall -Wextra -Werror -I$(INCDIR)
 SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c strings.c)
@@ -11,8 +12,8 @@ TEST	= tests/main.c
 
 all:			$(NAME)
 
-$(NAME):		$(OBJDIR) $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME):		$(OBJDIR) $(OBJS) $(INCDIR)/$(HEADER)
+	ar rcus $(NAME) $(OBJS)
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)

@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 18:02:06 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 09:12:55 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/02 23:01:34 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,10 +47,12 @@ int			get_int(char **str, int n, t_settings s)
 	u_n = (neg) ? -n : n;
 	len = uintlen(u_n) + neg;
 	len = (s.field_width > len) ? s.field_width : len;
-	if (!(*str = malloc(sizeof(*str) * len)))
+	if (!(*str = malloc(sizeof(*str) * (len + 1))))
 		return (-1);
-	(*str)[len] = '\0';
+	(*str)[len + 1] = '\0';
 	i = len;
+	if (n == 0)
+		(*str)[--i] = '0';
 	while (u_n)
 	{
 		(*str)[--i] = u_n % 10 + '0';
@@ -86,12 +88,15 @@ int			get_uint(char **str, unsigned int n, t_settings s)
 
 int			get_str(char **dst, char *src, t_settings s)
 {
-	const int	len_src = ft_strlen(src);
-	int			len_dst;
-	int			space;
-	int			i;
+	int	len_src;
+	int	len_dst;
+	int	space;
+	int	i;
 
-	len_dst = (s.precision < len_src) ? s.precision : len_src;
+	if (src == NULL)
+		src = "(null)";
+	len_src = ft_strlen(src);
+	len_dst = (s.precision != -1 && s.precision < len_src) ? s.precision : len_src;
 	space = (s.field_width > len_dst) ? s.field_width - len_dst : 0;
 	len_dst = (s.field_width > len_dst) ? s.field_width : len_dst;
 	if (!(*dst = malloc(sizeof(**dst) * len_dst + 1)))

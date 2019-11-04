@@ -23,7 +23,7 @@ typedef struct	s_settings
 	char	padding;
 }				t_settings;
 
-int				ft_printf(const char *format, ...);
+int				ft_printf(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
 int				get_char(char **str, char c, int fw);
 int				get_int(char **str, int n, t_settings s);
 int				get_uint(char **str, unsigned int n, t_settings s);

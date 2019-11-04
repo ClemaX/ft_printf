@@ -72,8 +72,8 @@ void	test_str(t_settings sets)
 	char		*orig;
 
 	s = ft_strdup("Test");
-	count = get_str(&str, s, sets);
-	count_orig = asprintf(&orig, "%*.*s", sets.field_width, sets.precision, s);
+	count = get_str(&str, NULL, sets);
+	count_orig = asprintf(&orig, "%*.*s", sets.field_width, sets.precision, NULL);
 	printf("%s[%d]\n%s[%d]\n", orig, count_orig, str, count);
 	free(str);
 }

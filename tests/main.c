@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:48:35 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 09:06:13 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/02 01:52:25 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,5 +27,7 @@ int			main(void)
 	test_char(sets);
 	test_uint(sets);
 	test_str(sets);
+
+	test_printf();
 	return (0);
 }

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   tests.h                                          .::    .:/ .      .::   */
+/*   ft_printf.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/30 09:02:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/02 01:52:48 by chamada     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/02 01:49:33 by chamada      #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/02 23:06:31 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libftprintf.h"
+#include <stdio.h>
 
-void	test_int();
-void	test_char();
-void	test_uint();
-void	test_str();
+void	test_printf(void)
+{
+	int	count;
+	int	count_orig;
 
-void	test_printf(void);
+	count = ft_printf("Hello %s, %d %c", "World", 42, '\n');
+	count_orig = printf("Hello %s, %d %c", "World", 42, '\n');
+	printf("[%d, %d]\n", count, count_orig);
 
-#endif
+	count = ft_printf("Hello %s, %d %c", "", 0, '\n');
+	count_orig = printf("Hello %s, %d %c", "", 0, '\n');
+	printf("[%d, %d]\n", count, count_orig);
+}
