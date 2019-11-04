@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 14:17:38 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 15:24:11 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,11 +16,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/*
+**TODO: Implement '-'
+*/
+
 static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
 {
 	s->padding = ' ';
 	s->field_width = -1;
-	// TODO: Implement '-'
 	while (**fmt == '0' || **fmt == ' ')
 		s->padding = **(fmt++);
 	if (**fmt == '*')
@@ -50,7 +53,7 @@ static void	get_precision(const char **fmt, va_list ap, t_settings *s)
 		}
 	}
 	else
-		s->precision = -1;	
+		s->precision = -1;
 }
 
 static int	print(const char **fmt, t_settings s, va_list ap)

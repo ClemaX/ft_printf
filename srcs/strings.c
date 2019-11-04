@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 18:02:06 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 14:17:39 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 15:22:22 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,66 +23,6 @@ int			get_char(char **str, char c, int fw)
 	ft_memset(*str, ' ', len - 1);
 	(*str)[len - 1] = c;
 	(*str)[len] = 0;
-	return (len);
-}
-
-static int	uintlen(unsigned int n)
-{
-	int len;
-
-	len = 1;
-	while (n /= 10)
-		len++;
-	return (len);
-}
-
-int			get_int(char **str, int n, t_settings s)
-{
-	unsigned int	u_n;
-	char			neg;
-	int				len;
-	int				i;
-
-	neg = (n < 0);
-	u_n = (neg) ? -n : n;
-	len = uintlen(u_n) + neg;
-	len = (s.field_width > len) ? s.field_width : len;
-	if (!(*str = malloc(sizeof(*str) * (len + 1))))
-		return (-1);
-	(*str)[len + 1] = '\0';
-	i = len;
-	if (n == 0)
-		(*str)[--i] = '0';
-	while (u_n)
-	{
-		(*str)[--i] = u_n % 10 + '0';
-		u_n /= 10;
-	}
-	if (neg)
-		(*str)[--i] = '-';
-	while (i--)
-		(*str)[i] = s.padding;
-	return (len);
-}
-
-int			get_uint(char **str, unsigned int n, t_settings s)
-{
-	int				len;
-	int				i;
-
-	len = uintlen(n);
-	len = (s.field_width > len) ? s.field_width : len;
-	if (!(*str = malloc(sizeof(*str) * len)))
-		return (-1);
-	(*str)[len] = '\0';
-	i = len;
-	while (n)
-	{
-		(*str)[--i] = n % 10 + '0';
-		n /= 10;
-	}
-	while (i--)
-		(*str)[i] = s.padding;
 	return (len);
 }
 
