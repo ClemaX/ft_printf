@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 15:24:11 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 04:31:42 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,26 +16,27 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
-**TODO: Implement '-'
-*/
-
 static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
 {
 	s->padding = ' ';
-	s->field_width = -1;
-	while (**fmt == '0' || **fmt == ' ')
-		s->padding = **(fmt++);
-	if (**fmt == '*')
+	s->field_width = 0;
+	while (**fmt == '0' || **fmt == ' ' || **fmt == '-' || **fmt == '*')
 	{
-		s->field_width = va_arg(ap, int);
-		(*fmt)++;
-	}
-	else
-	{
-		s->field_width = 0;
-		while (ft_isdigit(**fmt))
-			s->field_width += 10 * s->field_width + *(*fmt++) - '0';
+		if (**fmt == '0' || **fmt == ' ')
+			s->padding = *((*fmt)++);
+		if (**fmt == '-')
+		{
+			s->neg_fw = 1;
+			(*fmt)++;
+		}
+		if (**fmt == '*')
+		{
+			s->field_width = va_arg(ap, int);
+			(*fmt)++;
+		}
+		else
+			while (ft_isdigit(**fmt))
+				s->field_width = 10 * s->field_width + *((*fmt)++) - '0';
 	}
 }
 
@@ -49,7 +50,7 @@ static void	get_precision(const char **fmt, va_list ap, t_settings *s)
 		{
 			s->precision = 0;
 			while (ft_isdigit(**fmt))
-				s->precision += 10 * s->precision + **(fmt++) - '0';
+				s->precision = 10 * s->precision + *((*fmt)++) - '0';
 		}
 	}
 	else

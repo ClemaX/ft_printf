@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/15 18:54:08 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 15:18:00 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 03:25:21 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@ typedef struct	s_settings
 {
 	int		precision;
 	int		field_width;
+	int		neg_fw;
 	char	padding;
 }				t_settings;
 
