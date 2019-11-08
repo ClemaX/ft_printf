@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 04:31:42 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 01:26:58 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,12 +16,18 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
+static void	get_flags(const char **fmt, va_list ap, t_settings *s)
 {
 	s->padding = ' ';
-	s->field_width = 0;
-	while (**fmt == '0' || **fmt == ' ' || **fmt == '-' || **fmt == '*')
+	s->neg_fw = 0;
+	s->prefix = 0;
+	while ((ft_strchr("#0 -+\'", **fmt)))
 	{
+		if (**fmt == '#')
+		{
+			(*fmt)++;
+			s->prefix = 1;
+		}
 		if (**fmt == '0' || **fmt == ' ')
 			s->padding = *((*fmt)++);
 		if (**fmt == '-')
@@ -29,35 +35,43 @@ static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
 			s->neg_fw = 1;
 			(*fmt)++;
 		}
-		if (**fmt == '*')
-		{
-			s->field_width = va_arg(ap, int);
-			(*fmt)++;
-		}
-		else
-			while (ft_isdigit(**fmt))
-				s->field_width = 10 * s->field_width + *((*fmt)++) - '0';
 	}
+}
+
+static void	get_field_width(const char **fmt, va_list ap, t_settings *s)
+{
+	if (**fmt == '*')
+	{
+		if ((s->field_width = va_arg(ap, int)) < 0)
+		{
+			s->field_width = -s->field_width;
+			s->neg_fw = 1;
+			s->padding = ' ';
+		}
+		(*fmt)++;
+	}
+	else
+		s->field_width = parse_number(fmt);
 }
 
 static void	get_precision(const char **fmt, va_list ap, t_settings *s)
 {
-	if (**(fmt++) == '.')
+	if (**fmt == '.')
 	{
-		if (**(fmt++) == '*')
-			s->precision = va_arg(ap, int);
-		else
+		(*fmt)++;
+		if (**fmt == '*')
 		{
-			s->precision = 0;
-			while (ft_isdigit(**fmt))
-				s->precision = 10 * s->precision + *((*fmt)++) - '0';
+			s->precision = va_arg(ap, int);
+			(*fmt)++;
 		}
+		else
+			s->precision = parse_number(fmt);
 	}
 	else
 		s->precision = -1;
 }
 
-static int	print(const char **fmt, t_settings s, va_list ap)
+static int	print(const char **fmt, va_list ap, t_settings s)
 {
 	int		count;
 	char	*str;
@@ -73,15 +87,15 @@ static int	print(const char **fmt, t_settings s, va_list ap)
 	else if (**fmt == 'x')
 		count = get_int(&str, va_arg(ap, int), s, "0123456789abcdef");
 	else if (**fmt == 'X')
-		count = get_int(&str, va_arg(ap, int), s, "0123456789ABCDEF");
-	else
-		count = -1;
-	(*fmt)++;
-	if (count > 0)
 	{
-		write(1, str, count);
-		free(str);
+		s.prefix *= 2;
+		count = get_int(&str, va_arg(ap, int), s, "0123456789ABCDEF");
 	}
+	else
+		return (-1);
+	(*fmt)++;
+	write(1, str, count);
+	free(str);
 	return (count);
 }
 
@@ -98,9 +112,10 @@ int			ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
+			get_flags(&fmt, ap, &s);
 			get_field_width(&fmt, ap, &s);
 			get_precision(&fmt, ap, &s);
-			len += print(&fmt, s, ap);
+			len += print(&fmt, ap, s);
 		}
 		else
 		{

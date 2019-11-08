@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 18:02:06 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 04:03:15 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 22:18:32 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,32 +28,27 @@ int			get_char(char **str, char c, int fw)
 
 int			get_str(char **dst, char *src, t_settings s)
 {
-	int	len_src;
-	int	len_dst;
+	int	len;
 	int	padding;
-	int	i;
 
 	if (src == NULL)
 		src = "(null)";
-	len_src = ft_strlen(src);
-	len_dst = (s.precision != -1 && s.precision < len_src) ? s.precision : len_src;
-	padding = (s.field_width > len_dst) ? s.field_width - len_dst : 0;
-	len_dst = (s.field_width > len_dst) ? s.field_width : len_dst;
-	if (!(*dst = malloc(sizeof(**dst) * len_dst + 1)))
+	len = ft_strlen(src);
+	len = (s.precision != -1 && s.precision < len)? s.precision : len;
+	padding = (s.field_width > len) ? s.field_width - len : 0;
+	len = (s.field_width > len) ? s.field_width : len;
+	if (!(*dst = malloc(sizeof(**dst) * (len + 1))))
 		return (-1);
-	(*dst)[len_dst] = '\0';
+	(*dst)[len] = '\0';
 	if (!s.neg_fw)
 	{
 		ft_memset(*dst, ' ', padding);
-		while (*src && padding < len_dst)
-			(*dst)[padding++] = *src++;
+		ft_memcpy(*dst + padding, src, len - padding);
 	}
 	else
 	{
-		i = 0;
-		while (*src && i < len_dst - padding)
-			(*dst)[i++] = *src++;
-		ft_memset(dst[i], ' ', padding);
+		ft_memcpy(*dst, src, len - padding);
+		ft_memset(*dst + len - padding, ' ', padding);
 	}
-	return (len_dst);
+	return (len);
 }

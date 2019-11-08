@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/15 18:54:08 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 03:25:21 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 00:53:17 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,11 +21,14 @@ typedef struct	s_settings
 	int		precision;
 	int		field_width;
 	int		neg_fw;
+	int		prefix;
 	char	padding;
 }				t_settings;
 
 int				ft_printf(const char *format, ...)
 	__attribute__ ((format (printf, 1, 2)));
+int				is_flag(char c);
+int				parse_number(const char **fmt);
 int				get_char(char **str, char c, int fw);
 int				get_int(char **str, int n, t_settings s, const char *base);
 int				get_uint(char **str, unsigned int n, t_settings s);
