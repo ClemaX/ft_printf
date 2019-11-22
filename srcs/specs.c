@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/10 23:35:12 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 18:46:21 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 21:59:39 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,25 +18,19 @@
 /*
 **	fmt:	The format string
 **
-**	Parse a signed integer from the format string
+**	Parse an usigned integer from the format string
 */
 
 static int	parse_number(const char **fmt)
 {
 	int	number;
-	int factor;
 
 	number = 0;
 	if (**fmt == '-')
-	{
-		factor = -1;
 		(*fmt)++;
-	}
-	else
-		factor = 1;
 	while (ft_isdigit(**fmt))
 		number = 10 * number + *((*fmt)++) - '0';
-	return (number * factor);
+	return (number);
 }
 
 /*
