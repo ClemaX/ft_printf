@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/14 23:24:01 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 17:05:23 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 18:08:39 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ t_size					ft_strlcpy(char *dst, const char *src, t_size size);
 t_size					ft_strlcat(char *dst, const char *src, t_size size);
 char					*ft_strchr(const char *s, int c);
 char					*ft_strrchr(const char *s, int c);
+int						ft_strpos(const char *s, int c);
 char					*ft_strnstr(const char *haystack, const char *needle,
 	t_size len);
 int						ft_strncmp(const char *s1, const char *s2, t_size n);
