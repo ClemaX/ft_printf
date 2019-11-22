@@ -66,5 +66,6 @@ int		ft_printf(const char *fmt, ...)
 	if (((len = line_put(&str, &line)) < 0))
 		return (-1);
 	write(1, str, len);
+	free(str);
 	return (len);
 }
