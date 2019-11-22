@@ -24,7 +24,7 @@ t_line	*fmt_num();
 **	cspdiuxX% | nfge
 */
 
-t_line	*(*format[9]) = {
+t_line			*(*format[9])(t_line **line, t_spec spec, va_list ap) = {
 	fmt_char,
 	fmt_str,
 	fmt_num,
