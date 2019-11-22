@@ -46,11 +46,25 @@ t_line	*parse_fmt(const char *fmt, va_list ap)
 	line = NULL;
 	while (parse_txt(&fmt, &line) && *fmt)
 	{
-			spec = parse_spec(&fmt, ap);
+		spec = parse_spec(&fmt, ap);
 		if (!format[spec.type](&line, spec, ap))
-				line_clr(&line);
-		}
-	return (line);
+			line_clr(&line);
 	}
 	return (line);
+}
+
+int		ft_printf(const char *fmt, ...)
+{
+	va_list	ap;
+	t_line	*line;
+	char	*str;
+	int		len;
+
+	va_start(ap, fmt);
+	line = parse_fmt(fmt, ap);
+	va_end(ap);
+	if (((len = line_put(&str, &line)) < 0))
+		return (-1);
+	write(1, str, len);
+	return (len);
 }
