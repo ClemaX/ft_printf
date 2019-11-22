@@ -6,11 +6,12 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/10 23:35:12 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 22:15:25 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 18:46:21 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <specs.h>
 #include <stdarg.h>
 
@@ -20,7 +21,7 @@
 **	Parse a signed integer from the format string
 */
 
-static int	parse_number(char **fmt)
+static int	parse_number(const char **fmt)
 {
 	int	number;
 	int factor;
@@ -47,12 +48,16 @@ static int	parse_number(char **fmt)
 
 static char	parse_flags(const char **fmt)
 {
-	char	*pos;
+	int		pos;
 	char	flags;
 
-	while (pos = ft_strchr("-+ 0#", *fmt))
-		flags |= (1 << (pos - *fmt));
-	if (flags & (MINUS | ZERO) == (MINUS | ZERO))
+	flags = 0;
+	while ((pos = ft_strpos("-+ 0#", **fmt)) != -1)
+	{
+		flags |= (1 << pos);
+		(*fmt)++;
+	}
+	if ((flags & (MINUS | ZERO)) == (MINUS | ZERO))
 		flags &= ~ZERO;
 	return (flags);
 }
@@ -113,6 +118,6 @@ t_spec	parse_spec(const char **fmt, va_list ap)
 	spec.flags = parse_flags(fmt);
 	spec.width = parse_width(fmt, ap);
 	spec.precision = parse_precision(fmt, ap);
-	spec.type = **fmt++;
+	spec.type = ft_strpos("cspdiuxX%", *(*fmt)++);
 	return (spec);
 }

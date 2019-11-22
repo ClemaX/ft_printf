@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 18:22:46 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 22:58:00 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 17:54:56 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,32 +15,42 @@
 #include <specs.h>
 #include <line.h>
 #include <format.h>
+#include <unistd.h>
+
+int		parse_txt(const char **fmt, t_line **line)
+{
+	char	*next;
+
+	if ((next = ft_strchr(*fmt, '%')))
+	{
+		if (next != *fmt)
+			if (!line_add(line, ft_substr(*fmt, 0, next - *fmt), next - *fmt))
+			{
+				line_clr(line);
+				return (0);
+			}
+		*fmt = next + 1;
+		return (1);
+	}
+	if (**fmt)
+		if (!line_add(line, ft_strdup(*fmt), ft_strlen(*fmt)))
+			line_clr(line);
+	return (0);
+}
 
 t_line	*parse_fmt(const char *fmt, va_list ap)
 {
-	int		len;
 	t_spec	spec;
 	t_line	*line;
-	char	*next;
 
 	line = NULL;
-	len = 0;
-	while (*fmt)
+	while (parse_txt(&fmt, &line) && *fmt)
 	{
-		if (next = ft_strchr(fmt, '%') && next != fmt)
-		{
-			len += next - fmt;
-			if (!line_add(&line, ft_substr(fmt, 0, next - fmt), next - fmt))
-				return (-1);
-			fmt = next;
-		}
-		else
-		{
 			spec = parse_spec(&fmt, ap);
-			next = ft_strchr("cspdiuxX%", spec.type);
-			if (!next || !format[next - (fmt - 1)](&line, spec, ap))
+		if (!format[spec.type](&line, spec, ap))
 				line_clr(&line);
 		}
+	return (line);
 	}
 	return (line);
 }

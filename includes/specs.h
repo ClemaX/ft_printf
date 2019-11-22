@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 04:45:20 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 18:18:23 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 17:34:50 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,12 +23,19 @@
 # define HASH	(1 << 4)
 
 typedef unsigned char t_flags;
+
+typedef enum	e_types
+{
+	CHAR, STR, PTR, DEC, INT, UINT, LHEX, UHEX, PCNT
+}				e_types;
+
 typedef struct	s_spec
 {
 	t_flags	flags;
 	int		width;
 	int		precision;
-	char	type;
+	e_types	type;
+	va_list	ap;
 }				t_spec;
 
 t_spec	parse_spec(const char **fmt, va_list ap);
