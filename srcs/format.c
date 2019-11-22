@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 19:03:45 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 21:49:45 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,13 @@
 static t_line	*fmt_char(t_line **line, t_spec spec, va_list ap)
 {
 	const int	len = (spec.width > 1) ? spec.width : 1;
+	const char	c = (spec.type == PCNT) ? '%' : va_arg(ap, unsigned);
 	char		*content;
 
 	if (!(content = malloc(sizeof(*content) * len)))
 		return (NULL);
 	ft_memset(content, (spec.flags & ZERO) ? '0' : ' ', len);
-	content[spec.flags & MINUS ? 0 : len - 1] = va_arg(ap, int);
+	content[spec.flags & MINUS ? 0 : len - 1] = c;
 	return (line_add(line, content, len));
 }
 
