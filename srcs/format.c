@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 21:49:45 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 22:49:47 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,18 +33,19 @@ static t_line	*fmt_char(t_line **line, t_spec spec, va_list ap)
 static t_line	*fmt_str(t_line **line, t_spec spec, va_list ap)
 {
 	const char	*str = va_arg(ap, char*);
-	int			strlen;
+	const char	*src = (str) ? str : "(null)";
+	int			srclen;
 	int			len;
 	char		*content;
 
-	strlen = ft_strlen(str);
-	if (spec.precision >= 0 && spec.precision < strlen)
-		strlen = spec.precision;
-	len = (spec.width > strlen) ? spec.width : strlen;
+	srclen = ft_strlen(src);
+	if (spec.precision >= 0 && spec.precision < srclen)
+		srclen = spec.precision;
+	len = (spec.width > srclen) ? spec.width : srclen;
 	if (!(content = malloc(sizeof(*content) * len)))
 		return (NULL);
 	ft_memset(content, (spec.flags & ZERO) ? '0' : ' ', len);
-	ft_memcpy(content + (len - strlen) * (spec.flags & MINUS), str, strlen);
+	ft_memcpy(content + (len - srclen) * !(spec.flags & MINUS), src, srclen);
 	return (line_add(line, content, len));
 }
 
