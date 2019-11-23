@@ -16,8 +16,9 @@
 #include <line.h>
 #include <format.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-int		parse_txt(const char **fmt, t_line **line)
+static int		parse_txt(const char **fmt, t_line **line)
 {
 	char	*next;
 
@@ -38,7 +39,7 @@ int		parse_txt(const char **fmt, t_line **line)
 	return (0);
 }
 
-t_line	*parse_fmt(const char *fmt, va_list ap)
+static t_line	*parse_fmt(const char *fmt, va_list ap)
 {
 	t_spec	spec;
 	t_line	*line;
@@ -53,7 +54,7 @@ t_line	*parse_fmt(const char *fmt, va_list ap)
 	return (line);
 }
 
-int		ft_printf(const char *fmt, ...)
+int				ft_printf(const char *fmt, ...)
 {
 	va_list	ap;
 	t_line	*line;
