@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/13 16:37:09 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 01:26:58 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/21 15:50:44 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	get_flags(const char **fmt, va_list ap, t_settings *s)
+static void	get_flags(const char **fmt, t_settings *s)
 {
 	s->padding = ' ';
 	s->neg_fw = 0;
@@ -112,7 +112,7 @@ int			ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			get_flags(&fmt, ap, &s);
+			get_flags(&fmt, &s);
 			get_field_width(&fmt, ap, &s);
 			get_precision(&fmt, ap, &s);
 			len += print(&fmt, ap, s);
