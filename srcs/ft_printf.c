@@ -16,6 +16,7 @@
 #include <line.h>
 #include <format.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int		parse_txt(const char **fmt, t_line **line)
 {
