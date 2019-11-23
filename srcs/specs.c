@@ -46,7 +46,7 @@ static char	parse_flags(const char **fmt)
 	char	flags;
 
 	flags = 0;
-	while ((pos = ft_strpos("-+ 0#", **fmt)) != -1)
+	while ((pos = ft_strpos(FLAGS, **fmt)) != -1)
 	{
 		flags |= (1 << pos);
 		(*fmt)++;
@@ -118,6 +118,6 @@ t_spec	parse_spec(const char **fmt, va_list ap)
 	spec.flags = parse_flags(fmt);
 	spec.width = parse_width(fmt, ap);
 	spec.precision = parse_precision(fmt, ap);
-	spec.type = ft_strpos("cspdiuxX%", *(*fmt)++);
+	spec.type = ft_strpos(TYPES, *(*fmt)++);
 	return (spec);
 }
