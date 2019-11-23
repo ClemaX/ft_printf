@@ -68,7 +68,10 @@ static int	parse_width(const char **fmt, va_list ap)
 	int	width;
 
 	if (**fmt == '*')
+	{
+		(*fmt)++;
 		width = va_arg(ap, int);
+	}
 	else
 		width = utoa(fmt);
 	return (width);
@@ -90,7 +93,10 @@ static int	parse_precision(const char **fmt, va_list ap)
 		return (-1);
 	(*fmt)++;
 	if (**fmt == '*')
+	{
+		(*fmt)++;
 		precision = va_arg(ap, int);
+	}
 	else
 		precision = utoa(fmt);
 	if (precision < 0)
