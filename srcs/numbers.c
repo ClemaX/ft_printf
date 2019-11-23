@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:08:17 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 23:01:41 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/23 23:28:30 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,12 +46,12 @@ t_number	convert_signed(va_list ap, t_spec spec)
 	t_number	number;
 	int64_t		value;
 
-	if (spec.size == S_DEF || spec.size == S_HH || spec.size == S_H)
-		value = va_arg(ap, int);
-	else if (spec.size == S_L)
+	if (spec.size == S_L)
 		value = va_arg(ap, long);
 	else if (spec.size == S_LL)
 		value = va_arg(ap, long long);
+	else
+		value = va_arg(ap, int);
 	if (value < 0)
 		number.sign = '-';
 	else if (spec.flags & PLUS)
@@ -68,12 +68,12 @@ t_number	convert_unsigned(va_list ap, t_spec spec)
 {
 	t_number	number;
 
-	if (spec.size == S_DEF || spec.size == S_HH || spec.size == S_H)
-		number.value = va_arg(ap, unsigned int);
-	else if (spec.size == S_L)
+	if (spec.size == S_L)
 		number.value = va_arg(ap, unsigned long);
 	else if (spec.size == S_LL)
 		number.value = va_arg(ap, unsigned long long);
+	else
+		number.value = va_arg(ap, unsigned int);
 	if (spec.flags & PLUS)
 		number.sign = '+';
 	else if (spec.flags & SPACE)
