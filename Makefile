@@ -7,8 +7,7 @@ HEADER	= libftprintf.h
 OBJDIR	= obj
 CFLAGS	= -Wall -Wextra -Werror
 IFLAGS	= -I$(INCDIR) -I$(LIBFT)
-LFLAGS	= -L$(LIBFT)
-SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c format.c line.c specs.c)
+SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c specs.c format.c line.c numbers.c)
 OBJS	= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 TEST	= tests/main.c
 
