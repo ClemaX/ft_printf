@@ -15,6 +15,15 @@
 #include <line.h>
 #include <stdlib.h>
 
+/*
+**	line:		The line to add content on
+**	content:	The content to add
+**	size:		The size of the content
+**
+**	Add content to the line elements list
+**	Note: This function has no effect when size == 0
+*/
+
 t_line	*line_add(t_line **line, char *content, int size)
 {
 	t_line *new;
@@ -29,6 +38,12 @@ t_line	*line_add(t_line **line, char *content, int size)
 	return ((*line = new));
 }
 
+/*
+**	line:		The line to clear
+**
+**	Free every list element of the line and set its pointer to NULL
+*/
+
 t_line	*line_clr(t_line **line)
 {
 	t_line	*curr;
@@ -41,6 +56,12 @@ t_line	*line_clr(t_line **line)
 	}
 	return (NULL);
 }
+
+/*
+**	line:		The line to measure
+**
+**	Get the total length of a line
+*/
 
 int		line_len(t_line	*line)
 {
@@ -56,6 +77,14 @@ int		line_len(t_line	*line)
 	}
 	return (len);
 }
+
+/*
+**	dest:		The destination string
+**	line:		The line to copy
+**
+**	Copy a line into a string, clearing it's content and returning it's length
+**	Note: Returns -1 in case of error
+*/
 
 int		line_put(char **dest, t_line **line)
 {

@@ -60,7 +60,12 @@ static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
 }
 
 /*
-**	cspdiuxX% | nfge
+**	line:	The line to add content on
+**	spec:	The format specification
+**	ap:		The variable-arguments list
+**
+**	Format each variable according to specification
+**	Note: Types are dispatched in following order: cspdiuxX%
 */
 
 t_line			*(*format[9])(t_line **line, t_spec spec, va_list ap) = {
