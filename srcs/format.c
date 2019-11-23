@@ -59,11 +59,7 @@ static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
 	return (NULL);
 }
 
-/*
-**	cspdiuxX% | nfge
-*/
-
-t_line			*(*format[9])(t_line **line, t_spec spec, va_list ap) = {
+t_line	*(*g_format[9])(t_line**, t_spec, va_list) = {
 	fmt_char,
 	fmt_str,
 	fmt_num,

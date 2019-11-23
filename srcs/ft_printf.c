@@ -48,7 +48,7 @@ static t_line	*parse_fmt(const char *fmt, va_list ap)
 	while (parse_txt(&fmt, &line) && *fmt)
 	{
 		spec = parse_spec(&fmt, ap);
-		if (!format[spec.type](&line, spec, ap))
+		if (!g_format[spec.type](&line, spec, ap))
 			line_clr(&line);
 	}
 	return (line);
