@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 22:49:47 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/23 23:14:35 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 #include <libft.h>
 #include <specs.h>
 #include <line.h>
+#include <numbers.h>
 
 static t_line	*fmt_char(t_line **line, t_spec spec, va_list ap)
 {
@@ -49,14 +50,32 @@ static t_line	*fmt_str(t_line **line, t_spec spec, va_list ap)
 	return (line_add(line, content, len));
 }
 
-static t_line	*fmt_int(t_line **line, t_spec spec, va_list ap)
-{
-	return (NULL);
-}
-
 static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
 {
-	return (NULL);
+	t_number		n;
+	int				len;
+	int				pos;
+	char			*content;
+
+	n = parse_number(ap, spec);
+	len = ((spec.width > n.len + (n.sign)) ? spec.width : n.len) + (2 * ((spec.flags & HASH) != 0));
+	if (!(content = malloc(sizeof(*content) * len)))
+		return (NULL);
+	pos = ((spec.flags & MINUS) ? n.len + (n.sign != 0) - 1 : len - 1);
+	ft_memset(&content[(spec.flags & MINUS) ? pos : 0], ((spec.flags & ZERO) && spec.precision == -1) ? '0' : ' ', (spec.flags & MINUS) ? len - pos : pos - n.len + 1);
+	while (n.len--)
+	{
+		content[pos--] = n.digits[n.value % n.radix];
+		n.value /= n.radix;
+	}
+	if (n.radix == 16 && spec.flags & HASH)
+	{
+		content[pos--] = (spec.type & LHEX) ? 'x' : 'X';
+		content[pos--] = '0';
+	}
+	if (n.sign != 0)
+		content[pos--] = '-';
+	return (line_add(line, content, len));
 }
 
 t_line	*(*g_format[9])(t_line**, t_spec, va_list) = {
