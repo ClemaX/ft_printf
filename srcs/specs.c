@@ -21,7 +21,7 @@
 **	Parse an usigned integer from the format string
 */
 
-static int	parse_number(const char **fmt)
+static int	utoa(const char **fmt)
 {
 	int	number;
 
@@ -70,7 +70,7 @@ static int	parse_width(const char **fmt, va_list ap)
 	if (**fmt == '*')
 		width = va_arg(ap, int);
 	else
-		width = parse_number(fmt);
+		width = utoa(fmt);
 	return (width);
 }
 
@@ -92,7 +92,7 @@ static int	parse_precision(const char **fmt, va_list ap)
 	if (**fmt == '*')
 		precision = va_arg(ap, int);
 	else
-		precision = parse_number(fmt);
+		precision = utoa(fmt);
 	if (precision < 0)
 		return (-1);
 	return (precision);
