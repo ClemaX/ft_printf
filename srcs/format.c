@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 23:14:35 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/23 23:22:46 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,15 @@ static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
 		content[pos--] = '-';
 	return (line_add(line, content, len));
 }
+
+/*
+**	line:	The line to add content on
+**	spec:	The format specification
+**	ap:		The variable-arguments list
+**
+**	Format each variable according to specification
+**	Note: Types are dispatched in following order: cspdiuxX%
+*/
 
 t_line	*(*g_format[9])(t_line**, t_spec, va_list) = {
 	fmt_char,
