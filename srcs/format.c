@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 23:22:46 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 21:47:37 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,31 +50,33 @@ static t_line	*fmt_str(t_line **line, t_spec spec, va_list ap)
 	return (line_add(line, content, len));
 }
 
-static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
+static void		write_num(char *dest, t_number number)
 {
-	t_number		n;
-	int				len;
-	int				pos;
+	dest += number.len + number.prefix_len + (number.sign != '\0') - 1;
+	while (number.len--)
+	{
+		*dest-- = number.digits[number.value % number.radix];
+		number.value /= number.radix;
+	}
+	if (number.prefix)
+	{
+		*dest-- = number.prefix;
+		*dest-- = '0';
+	}
+	if (number.sign)
+		*dest = number.sign;
+}
+
+static t_line	*fmt_num(t_line **line, t_spec s, va_list ap)
+{
+	const t_number	n = parse_number(ap, s);
+	const int		len = n.padding + (n.sign != '\0') + n.prefix_len + n.len;
+	const char		p = (s.flags & ZERO) ? '0' : ' ';
 	char			*content;
 
-	n = parse_number(ap, spec);
-	len = ((spec.width > n.len + (n.sign)) ? spec.width : n.len) + (2 * ((spec.flags & HASH) != 0));
-	if (!(content = malloc(sizeof(*content) * len)))
-		return (NULL);
-	pos = ((spec.flags & MINUS) ? n.len + (n.sign != 0) - 1 : len - 1);
-	ft_memset(&content[(spec.flags & MINUS) ? pos : 0], ((spec.flags & ZERO) && spec.precision == -1) ? '0' : ' ', (spec.flags & MINUS) ? len - pos : pos - n.len + 1);
-	while (n.len--)
-	{
-		content[pos--] = n.digits[n.value % n.radix];
-		n.value /= n.radix;
-	}
-	if (n.radix == 16 && spec.flags & HASH)
-	{
-		content[pos--] = (spec.type & LHEX) ? 'x' : 'X';
-		content[pos--] = '0';
-	}
-	if (n.sign != 0)
-		content[pos--] = '-';
+	content = malloc(sizeof(*content) * len);
+	ft_memset(&content[(s.flags & MINUS) ? len - n.padding : 0], p, n.padding);
+	write_num(&content[(s.flags & MINUS) ? 0 : n.padding], n);
 	return (line_add(line, content, len));
 }
 
