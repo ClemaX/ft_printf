@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:08:17 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 21:46:13 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 22:31:59 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,12 +76,7 @@ t_number	convert_unsigned(va_list ap, t_spec spec)
 		number.value = va_arg(ap, unsigned long long);
 	else
 		number.value = va_arg(ap, unsigned int);
-	if (spec.flags & PLUS)
-		number.sign = '+';
-	else if (spec.flags & SPACE)
-		number.sign = ' ';
-	else
-		number.sign = '\0';
+	number.sign = '\0';
 	return (number);
 }
 
