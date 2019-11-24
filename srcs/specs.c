@@ -117,7 +117,11 @@ t_spec		parse_spec(const char **fmt, va_list ap)
 	t_spec	spec;
 
 	spec.flags = parse_flags(fmt);
-	spec.width = parse_width(fmt, ap);
+	if ((spec.width = parse_width(fmt, ap)) < 0)
+	{
+		spec.width = -spec.width;
+		spec.flags |= MINUS;
+	}
 	spec.precision = parse_precision(fmt, ap);
 	spec.size = parse_size(fmt);
 	spec.type = ft_strpos(TYPES, *(*fmt)++);
