@@ -68,7 +68,9 @@ t_number	convert_unsigned(va_list ap, t_spec spec)
 {
 	t_number	number;
 
-	if (spec.size == S_L)
+	if (spec.type == PTR)
+		number.value = (uintptr_t)va_arg(ap, void*);
+	else if (spec.size == S_L)
 		number.value = va_arg(ap, unsigned long);
 	else if (spec.size == S_LL)
 		number.value = va_arg(ap, unsigned long long);
