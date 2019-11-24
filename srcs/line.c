@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:25:00 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 23:22:15 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 21:09:44 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,6 @@ t_line	*line_clr(t_line **line)
 	}
 	return (NULL);
 }
-
 
 /*
 **	line:		The line to measure
