@@ -84,17 +84,17 @@ static t_line	*fmt_num(t_line **line, t_spec spec, va_list ap)
 **	ap:		The variable-arguments list
 **
 **	Format each variable according to specification
-**	Note: Types are dispatched in following order: cspdiuxX%
+**	Note: Types are dispatched in following order: cs%pdiuxX
 */
 
 t_line	*(*g_format[9])(t_line**, t_spec, va_list) = {
 	fmt_char,
 	fmt_str,
+	fmt_char,
 	fmt_num,
 	fmt_num,
 	fmt_num,
 	fmt_num,
 	fmt_num,
-	fmt_num,
-	fmt_char
+	fmt_num
 };
