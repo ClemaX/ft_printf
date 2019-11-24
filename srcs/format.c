@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 21:47:37 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 22:25:24 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ static t_line	*fmt_num(t_line **line, t_spec s, va_list ap)
 {
 	const t_number	n = parse_number(ap, s);
 	const int		len = n.padding + (n.sign != '\0') + n.prefix_len + n.len;
-	const char		p = (s.flags & ZERO) ? '0' : ' ';
+	const char		p = ((s.flags & ZERO) && s.precision == -1) ? '0' : ' ';
 	char			*content;
 
 	content = malloc(sizeof(*content) * len);
