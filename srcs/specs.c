@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/10 23:35:12 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 23:19:07 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 20:36:08 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,5 +125,7 @@ t_spec		parse_spec(const char **fmt, va_list ap)
 	spec.precision = parse_precision(fmt, ap);
 	spec.size = parse_size(fmt);
 	spec.type = ft_strpos(TYPES, *(*fmt)++);
+	if (spec.type == PTR)
+		spec.flags |= HASH;
 	return (spec);
 }
