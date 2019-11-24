@@ -10,28 +10,32 @@ IFLAGS	= -I$(INCDIR) -I$(LIBFT)
 LFLAGS	= #-L$(LIBFT) -lft
 SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c specs.c format.c line.c numbers.c)
 OBJS	= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
-TEST	= tests/main.c
 
-all:			$(NAME)
+all:			libft $(NAME)
 
-$(LIBFT)/libft.a:
-	make -C $(LIBFT)
+libft:
+	make -C $(LIBFT) libft.a
 
-$(NAME):		$(OBJDIR) $(OBJS) $(INCDIR)/$(HEADER) $(LIBFT)/libft.a
-	ar rcus $(NAME) $(OBJS)
+$(LIBFT)/libft.a: libft
+
+$(NAME):	 	$(LIBFT)/libft.a $(OBJDIR) $(OBJS) $(INCDIR)/$(HEADER)
+	cp $(LIBFT)/libft.a libftprintf.a
+	ar rcus $@ $(OBJS)
 
 $(OBJDIR):
-	mkdir -p $(OBJDIR)
+	mkdir -p $@
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) -c -o $@ $<
 
 clean:
-	make -C $(LIBFT) clean
+	make -C $(LIBFT) $@
 	/bin/rm -rf $(OBJDIR)
 
 fclean: 		clean
-	make -C $(LIBFT) fclean
+	make -C $(LIBFT) $@
 	/bin/rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: libft
