@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:09:47 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/23 21:36:07 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 21:58:11 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,8 @@
 #ifndef NUMBERS_H
 # define NUMBERS_H
 
-#include <stdint.h>
-#include <specs.h>
+# include <stdint.h>
+# include <specs.h>
 
 # define D_DEC		"0123456789"
 # define D_LHEX		"0123456789abcdef"
@@ -32,16 +32,19 @@
 # define RADIXES	{	R_HEX,	R_DEC,	R_DEC,	R_DEC,	R_HEX,	R_HEX	}
 # define DIGITS		{	D_LHEX,	D_DEC,	D_DEC,	D_DEC,	D_LHEX,	D_UHEX	}
 
-typedef struct s_number
+typedef struct	s_number
 {
 	uint64_t	value;
 	char		sign;
 	int			radix;
 	const char	*digits;
 	int			len;
+	int			padding;
+	int			prefix_len;
+	char		prefix;
 }				t_number;
 
-t_numsize	parse_size(const char **fmt);
-t_number	parse_number(va_list ap, t_spec spec);
+t_numsize		parse_size(const char **fmt);
+t_number		parse_number(va_list ap, t_spec spec);
 
 #endif
