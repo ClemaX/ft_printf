@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/14 23:24:01 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 21:58:28 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 00:38:57 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,7 @@ int						ft_atoi(const char *str);
 int						ft_toupper(int c);
 int						ft_tolower(int c);
 int						ft_numlen(unsigned long long n, unsigned base);
+long double				ft_pow(int nb, int pow);
 
 char					*ft_substr(char const *s, unsigned int start,
 	t_size len);
