@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 04:56:06 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 05:24:02 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,10 +59,9 @@ static void		write_num(char *dest, t_number number)
 		number.value /= number.radix;
 	}
 	if (number.prefix)
-	{
 		*dest-- = number.prefix;
+	if ((number.prefix_len - (number.sign != '\0')) > 0)
 		*dest-- = '0';
-	}
 	if (number.sign)
 		*dest = number.sign;
 }
@@ -86,13 +85,14 @@ static t_line	*fmt_num(t_line **line, t_spec s, va_list ap)
 **	ap:		The variable-arguments list
 **
 **	Format each variable according to specification
-**	Note: Types are dispatched in following order: cs%pdiuxX
+**	Note: Types are dispatched in following order: cs%pdiuxXo
 */
 
-t_line	*(*g_format[9])(t_line**, t_spec, va_list) = {
+t_line	*(*g_format[10])(t_line**, t_spec, va_list) = {
 	fmt_char,
 	fmt_str,
 	fmt_char,
+	fmt_num,
 	fmt_num,
 	fmt_num,
 	fmt_num,

@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 04:45:20 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 22:10:43 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 04:55:37 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,13 +24,13 @@
 # define ZERO	(1 << 3)
 # define HASH	(1 << 4)
 
-# define TYPES	"cs%pdiuxX"
+# define TYPES	"cs%pdiuxXo"
 
 typedef unsigned char	t_flags;
 
 typedef enum			e_type
 {
-	CHAR, STR, PCNT, PTR, DEC, INT, UINT, LHEX, UHEX
+	CHAR, STR, PCNT, PTR, DEC, INT, UINT, LHEX, UHEX, OCT
 }						t_type;
 
 typedef enum			e_numsize

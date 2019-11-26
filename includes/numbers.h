@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:09:47 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 04:56:59 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 05:07:04 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,17 +20,19 @@
 # define D_DEC		"0123456789"
 # define D_LHEX		"0123456789abcdef"
 # define D_UHEX		"0123456789ABCDEF"
+# define D_OCT		"01234567"
 
 # define R_DEC		10
 # define R_HEX		0x10
+# define R_OCT		010
 
 /*
-**						PTR,	DEC,	INT,	UINT,	LHEX,	UHEX
+**					PTR,		DEC,	INT,	UINT,	LHEX,	UHEX
 */
 
 # define RADIX_N	6
-# define RADIXES	{	R_HEX,	R_DEC,	R_DEC,	R_DEC,	R_HEX,	R_HEX	}
-# define DIGITS		{	D_LHEX,	D_DEC,	D_DEC,	D_DEC,	D_LHEX,	D_UHEX	}
+# define RADIXES	{R_HEX,		R_DEC,	R_DEC,	R_DEC,	R_HEX,	R_HEX,	R_OCT}
+# define DIGITS		{D_LHEX,	D_DEC,	D_DEC,	D_DEC,	D_LHEX,	D_UHEX,	D_OCT}
 
 typedef struct	s_number
 {
