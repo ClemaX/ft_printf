@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:08:17 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 05:32:02 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 06:27:49 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,52 +39,18 @@ void		parse_dimensions(t_number *n, t_spec s)
 	n->padding = (s.width > size) ? s.width - size : 0;
 }
 
-t_number	get_dec(va_list ap, t_spec spec)
-{
-	t_number	number;
-
-	if (spec.type == UINT)
-		number = convert_unsigned(ap, spec);
-	else
-		number = convert_signed(ap, spec);
-	number.digits = D_DEC;
-	number.radix = R_DEC;
-	return (number);
-}
-
-t_number	get_hex(va_list ap, t_spec spec)
-{
-	t_number	number;
-
-	number = convert_unsigned(ap, spec);
-	number.radix = R_HEX;
-	if (spec.type == LHEX || spec.type == PTR)
-		number.digits = D_LHEX;
-	else if (spec.type == UHEX)
-		number.digits = D_UHEX;
-	return (number);
-}
-
-t_number	get_oct(va_list ap, t_spec spec)
-{
-	t_number	number;
-
-	number = convert_unsigned(ap, spec);
-	number.radix = R_OCT;
-	number.digits = D_OCT;
-	return (number);
-}
-
 t_number	parse_number(va_list ap, t_spec spec)
 {
+	const int	radixes[RADIX_N] = RADIXES;
+	const char	*digits[RADIX_N] = DIGITS;
 	t_number	number;
 
-	if (spec.type == DEC || spec.type == INT || spec.type == UINT)
-		number = get_dec(ap, spec);
-	else if (spec.type == LHEX || spec.type == UHEX)
-		number = get_hex(ap, spec);
+	if (spec.type == DEC || spec.type == INT)
+		number = convert_signed(ap, spec);
 	else
-		number = get_oct(ap, spec);
+		number = convert_unsigned(ap, spec);
+	number.radix = radixes[spec.type - PTR];
+	number.digits = digits[spec.type - PTR];
 	parse_dimensions(&number, spec);
 	return (number);
 }
