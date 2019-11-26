@@ -3,13 +3,12 @@ LIBFT	= libft
 CC		= /usr/bin/gcc
 SRCDIR	= srcs
 INCDIR	= includes
-HEADER	= libftprintf.h
 OBJDIR	= objs
 CFLAGS	= -Wall -Wextra -Werror
 IFLAGS	= -I$(INCDIR) -I$(LIBFT)
-LFLAGS	= #-L$(LIBFT) -lft
 SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c specs.c format.c line.c numbers.c convert.c)
 OBJS	= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+HDRS	= $(addprefix $(INCDIR)/, libftprintf.h format.h line.h numbers.h specs.h)
 
 all:			libft $(NAME)
 
@@ -18,14 +17,14 @@ libft:
 
 $(LIBFT)/libft.a: libft
 
-$(NAME):	 	$(LIBFT)/libft.a $(OBJDIR) $(OBJS) $(INCDIR)/$(HEADER)
+$(NAME):	 	$(LIBFT)/libft.a $(OBJDIR) $(OBJS)
 	cp $(LIBFT)/libft.a libftprintf.a
 	ar rcus $@ $(OBJS)
 
 $(OBJDIR):
 	mkdir -p $@
 
-$(OBJDIR)/%.o:	$(SRCDIR)/%.c
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c $(HDRS)
 	$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) -c -o $@ $<
 
 clean:
