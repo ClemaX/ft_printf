@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 22:25:24 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 04:56:06 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ static t_line	*fmt_str(t_line **line, t_spec spec, va_list ap)
 
 static void		write_num(char *dest, t_number number)
 {
-	dest += number.len + number.prefix_len + (number.sign != '\0') - 1;
+	dest += number.len + number.prefix_len - 1;
 	while (number.len--)
 	{
 		*dest-- = number.digits[number.value % number.radix];
@@ -70,7 +70,7 @@ static void		write_num(char *dest, t_number number)
 static t_line	*fmt_num(t_line **line, t_spec s, va_list ap)
 {
 	const t_number	n = parse_number(ap, s);
-	const int		len = n.padding + (n.sign != '\0') + n.prefix_len + n.len;
+	const int		len = n.padding + n.prefix_len + n.len;
 	const char		p = ((s.flags & ZERO) && s.precision == -1) ? '0' : ' ';
 	char			*content;
 

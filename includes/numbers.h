@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:09:47 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 21:58:11 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 04:56:59 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,5 +46,7 @@ typedef struct	s_number
 
 t_numsize		parse_size(const char **fmt);
 t_number		parse_number(va_list ap, t_spec spec);
+t_number		convert_signed(va_list ap, t_spec spec);
+t_number		convert_unsigned(va_list ap, t_spec spec);
 
 #endif

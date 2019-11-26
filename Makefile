@@ -8,7 +8,7 @@ OBJDIR	= objs
 CFLAGS	= -Wall -Wextra -Werror
 IFLAGS	= -I$(INCDIR) -I$(LIBFT)
 LFLAGS	= #-L$(LIBFT) -lft
-SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c specs.c format.c line.c numbers.c)
+SRCS	= $(addprefix $(SRCDIR)/, ft_printf.c specs.c format.c line.c numbers.c convert.c)
 OBJS	= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 all:			libft $(NAME)
