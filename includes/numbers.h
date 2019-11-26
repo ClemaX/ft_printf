@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:09:47 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 05:07:04 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 06:19:10 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,10 +27,10 @@
 # define R_OCT		010
 
 /*
-**					PTR,		DEC,	INT,	UINT,	LHEX,	UHEX
+**					PTR,		DEC,	INT,	UINT,	LHEX,	UHEX,	OCT
 */
 
-# define RADIX_N	6
+# define RADIX_N	7
 # define RADIXES	{R_HEX,		R_DEC,	R_DEC,	R_DEC,	R_HEX,	R_HEX,	R_OCT}
 # define DIGITS		{D_LHEX,	D_DEC,	D_DEC,	D_DEC,	D_LHEX,	D_UHEX,	D_OCT}
 
