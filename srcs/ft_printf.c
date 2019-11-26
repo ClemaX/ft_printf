@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 18:22:46 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 05:46:10 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 06:01:48 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,9 @@ static t_line	*parse_fmt(const char *fmt, va_list ap)
 	{
 		if ((spec = parse_spec(&fmt, ap)).type == ERR)
 			return (line_clr(&line));
-		if (!g_format[spec.type](&line, spec, ap))
+		if (spec.type == CNT)
+			*(va_arg(ap, int*)) = line_len(line);
+		else if (!g_format[spec.type](&line, spec, ap))
 			line_clr(&line);
 	}
 	return (line);
