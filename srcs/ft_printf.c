@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 18:22:46 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 06:01:48 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 01:05:55 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,9 +33,8 @@ static int		parse_txt(const char **fmt, t_line **line)
 		*fmt = next + 1;
 		return (1);
 	}
-	if (**fmt)
-		if (!line_add(line, ft_strdup(*fmt), ft_strlen(*fmt)))
-			line_clr(line);
+	if (!line_add(line, ft_strdup(*fmt), ft_strlen(*fmt)))
+		line_clr(line);
 	return (0);
 }
 
@@ -49,10 +48,10 @@ static t_line	*parse_fmt(const char *fmt, va_list ap)
 	{
 		if ((spec = parse_spec(&fmt, ap)).type == ERR)
 			return (line_clr(&line));
-		if (spec.type == CNT)
+		else if (spec.type == CNT)
 			*(va_arg(ap, int*)) = line_len(line);
 		else if (!g_format[spec.type](&line, spec, ap))
-			line_clr(&line);
+			return (line_clr(&line));
 	}
 	return (line);
 }
@@ -67,7 +66,7 @@ int				ft_printf(const char *fmt, ...)
 	va_start(ap, fmt);
 	line = parse_fmt(fmt, ap);
 	va_end(ap);
-	if (((len = line_put(&str, &line)) < 0))
+	if ((!line || (len = line_put(&str, &line)) < 0))
 		return (-1);
 	write(1, str, len);
 	free(str);

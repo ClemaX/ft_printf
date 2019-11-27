@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 22:02:48 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 06:08:46 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 06:50:51 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,6 @@
 #ifndef FORMAT_H
 # define FORMAT_H
 
-extern t_line	*(*g_format[10])(t_line **line, t_spec spec, va_list ap);
+extern int	(*g_format[10])(t_line **line, t_spec spec, va_list ap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:25:00 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 21:09:44 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 00:53:57 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,9 +28,7 @@ t_line	*line_add(t_line **line, char *content, int size)
 {
 	t_line *new;
 
-	if (!size)
-		return (*line);
-	if (!content || !(new = malloc(sizeof(t_line))))
+	if ((size && !content) || !(new = malloc(sizeof(*new))))
 		return (NULL);
 	new->content = content;
 	new->size = size;
@@ -91,7 +89,7 @@ int		line_put(char **dest, t_line **line)
 	const int	len = line_len(*line);
 	t_line		*curr;
 
-	if (!(*dest = malloc(sizeof(char) * (len + 1))))
+	if (!(*dest = malloc(sizeof(*dest) * (len + 1))))
 	{
 		line_clr(line);
 		return (-1);
