@@ -18,7 +18,7 @@ libft:
 $(LIBFT)/libft.a: libft
 
 $(NAME):	 	$(LIBFT)/libft.a $(OBJDIR) $(OBJS)
-	cp $(LIBFT)/libft.a libftprintf.a
+	cp $(LIBFT)/libft.a $(NAME)
 	ar rcus $@ $(OBJS)
 
 $(OBJDIR):
