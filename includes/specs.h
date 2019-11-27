@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 04:45:20 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 05:55:11 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 07:09:55 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,6 @@ typedef struct			s_spec
 	int			precision;
 	t_type		type;
 	t_numsize	size;
-	va_list		ap;
 }						t_spec;
 
 t_spec					parse_spec(const char **fmt, va_list ap);
