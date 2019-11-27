@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:08:17 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 06:27:49 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 01:54:47 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,15 +23,17 @@ void		parse_dimensions(t_number *n, t_spec s)
 	if (s.precision > n->len)
 		n->len = s.precision;
 	n->prefix = '\0';
-	if ((s.flags & HASH) && n->radix == R_HEX && (s.type == PTR || n->value))
+	n->prefix_len = (n->sign != '\0');
+	if (s.flags & HASH)
 	{
-		n->prefix = (s.type == LHEX || s.type == PTR) ? 'x' : 'X';
-		n->prefix_len = 2 + (n->sign != '\0');
+		if (n->radix == R_HEX && (n->value || s.type == PTR))
+		{
+			n->prefix = (s.type == LHEX || s.type == PTR) ? 'x' : 'X';
+			n->prefix_len += 2;
+		}
+		else if (n->radix == R_OCT)
+			n->prefix_len += !s.precision || (s.precision == -1 && n->value);
 	}
-	else if ((s.flags & HASH) && n->radix == R_OCT)
-		n->prefix_len = 1 + (n->sign != '\0');
-	else
-		n->prefix_len = (n->sign != '\0');
 	size = s.width - n->prefix_len;
 	if ((s.flags & ZERO) && s.precision == -1 && size > n->len)
 		n->len = size;
