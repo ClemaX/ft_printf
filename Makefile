@@ -28,11 +28,11 @@ $(OBJDIR)/%.o:	$(SRCDIR)/%.c $(HDRS)
 	$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) -c -o $@ $<
 
 clean:
-	make -C $(LIBFT) $@
+	make -C $(LIBFT) $@ NAME=libft.a
 	/bin/rm -rf $(OBJDIR)
 
 fclean: 		clean
-	make -C $(LIBFT) $@
+	make -C $(LIBFT) $@ NAME=libft.a
 	/bin/rm -f $(NAME)
 
 re: fclean all
