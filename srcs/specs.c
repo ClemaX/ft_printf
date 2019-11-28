@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/10 23:35:12 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 20:36:08 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/28 10:03:53 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ static char	parse_flags(const char **fmt)
 **	Parse the field width from the format string
 */
 
-static int	parse_width(const char **fmt, va_list ap)
+static int	parse_width(const char **fmt, va_list ap, unsigned char *flags)
 {
 	int	width;
 
@@ -72,6 +72,12 @@ static int	parse_width(const char **fmt, va_list ap)
 	{
 		(*fmt)++;
 		width = va_arg(ap, int);
+		if (width < 0 && *flags & ZERO)
+		{
+			width = -width;
+			*flags |= MINUS;
+			*flags &= ~ZERO;
+		}
 	}
 	else
 		width = utoa(fmt);
@@ -117,7 +123,7 @@ t_spec		parse_spec(const char **fmt, va_list ap)
 	t_spec	spec;
 
 	spec.flags = parse_flags(fmt);
-	if ((spec.width = parse_width(fmt, ap)) < 0)
+	if ((spec.width = parse_width(fmt, ap, &spec.flags)) < 0)
 	{
 		spec.width = -spec.width;
 		spec.flags |= MINUS;
