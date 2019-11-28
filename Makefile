@@ -13,7 +13,7 @@ HDRS	= $(addprefix $(INCDIR)/, libftprintf.h format.h line.h numbers.h specs.h)
 all:			libft $(NAME)
 
 libft:
-	make -C $(LIBFT) libft.a
+	make -C $(LIBFT) NAME=libft.a
 
 $(LIBFT)/libft.a: libft
 
