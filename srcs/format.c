@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/28 06:53:02 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/28 10:13:39 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,8 @@ static int	fmt_str(t_line **line, t_spec spec, va_list ap)
 	int			len;
 	char		*content;
 
+	if (spec.precision == 0 && spec.width == 0)
+		return (line_add(line, NULL, 0) != NULL);
 	srclen = ft_strlen(src);
 	if (spec.precision >= 0 && spec.precision < srclen)
 		srclen = spec.precision;
