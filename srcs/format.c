@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 21:47:21 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 06:52:12 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/28 06:53:02 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ static int	fmt_num(t_line **line, t_spec s, va_list ap)
 **	ap:		The variable-arguments list
 **
 **	Format each variable according to specification
-**	Note: Types are dispatched in following order: cs%pdiuxXo
+**	Note: Types are dispatched in following order: cs%pdiuxXon
 */
 
 int				(*g_format[10])(t_line**, t_spec, va_list) = {

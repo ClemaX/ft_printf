@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 18:22:46 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/27 01:05:55 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/28 06:58:52 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,14 @@
 #include <format.h>
 #include <unistd.h>
 #include <stdlib.h>
+
+/*
+**	fmt:	The format string
+**	line:	The line on which to add text
+**
+**	Put the non-format parts of the format string into the line
+**	Note: Returns 1 as long as there is content left
+*/
 
 static int		parse_txt(const char **fmt, t_line **line)
 {
@@ -37,6 +45,13 @@ static int		parse_txt(const char **fmt, t_line **line)
 		line_clr(line);
 	return (0);
 }
+
+/*
+**	fmt:	The format string
+**	ap:		The variadic arguments list
+**
+**	Parse the format, converting the arguments and building a line
+*/
 
 static t_line	*parse_fmt(const char *fmt, va_list ap)
 {

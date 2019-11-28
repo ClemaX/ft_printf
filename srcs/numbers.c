@@ -6,7 +6,7 @@
 /*   By: chamada <chamada@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 17:08:17 by chamada      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/27 01:54:47 by chamada     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/28 06:51:36 by chamada     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,15 @@
 #include <libft.h>
 #include <numbers.h>
 #include <specs.h>
+
+/*
+**	n:	The number
+**	s:	The format specification
+**
+**	Set the numbers dimensions according to its length using the format
+**	specification
+**	Note: The prefix_len includes the sign
+*/
 
 void		parse_dimensions(t_number *n, t_spec s)
 {
@@ -40,6 +49,14 @@ void		parse_dimensions(t_number *n, t_spec s)
 	size = n->len + n->prefix_len;
 	n->padding = (s.width > size) ? s.width - size : 0;
 }
+
+/*
+**	ap:		The variadic arguments list
+**	spec:	The format specification
+**
+**	Parse a given number depending on its type specification
+**	Note: The RADIXES and DIGITS lists must be sorted
+*/
 
 t_number	parse_number(va_list ap, t_spec spec)
 {
