@@ -37,4 +37,6 @@ fclean: 		clean
 
 re: fclean all
 
+bonus:		$(NAME)
+
 .PHONY: libft
